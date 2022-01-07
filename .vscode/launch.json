@@ -1,0 +1,45 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'noughts_and_crosses'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=noughts_and_crosses",
+                    "--package=noughts_and_crosses"
+                ],
+                "filter": {
+                    "name": "noughts_and_crosses",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'noughts_and_crosses'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=noughts_and_crosses",
+                    "--package=noughts_and_crosses"
+                ],
+                "filter": {
+                    "name": "noughts_and_crosses",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
