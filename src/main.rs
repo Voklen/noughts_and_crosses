@@ -42,6 +42,7 @@ mod tests{
             [CellState::None, CellState::None, CellState::Noughts]]
         ),Winner::Crosses)
     }
+    #[test]
     fn get_winner_row() {
         assert_eq!(get_winner([
             [CellState::Noughts, CellState::Noughts, CellState::None],
