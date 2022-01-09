@@ -45,9 +45,9 @@ mod tests{
     #[test]
     fn get_winner_row() {
         assert_eq!(get_winner([
-            [CellState::Noughts, CellState::Noughts, CellState::None],
-            [CellState::Crosses, CellState::Crosses, CellState::Crosses],
-            [CellState::None, CellState::None, CellState::Noughts]]
+            [CellState::Noughts, CellState::Crosses, CellState::None],
+            [CellState::None, CellState::Crosses, CellState::Noughts],
+            [CellState::None, CellState::Crosses, CellState::Noughts]]
         ),Winner::Crosses)
     }
 }
