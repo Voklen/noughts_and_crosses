@@ -35,7 +35,14 @@ mod tests{
     use crate::two_players::base::CellState;
     use crate::two_players::base::get_winner;
     #[test]
-    fn get_winner_horisontal() {
+    fn get_winner_collumns() {
+        assert_eq!(get_winner([
+            [CellState::Noughts, CellState::Noughts, CellState::None],
+            [CellState::Crosses, CellState::Crosses, CellState::Crosses],
+            [CellState::None, CellState::None, CellState::Noughts]]
+        ),Winner::Crosses)
+    }
+    fn get_winner_row() {
         assert_eq!(get_winner([
             [CellState::Noughts, CellState::Noughts, CellState::None],
             [CellState::Crosses, CellState::Crosses, CellState::Crosses],
