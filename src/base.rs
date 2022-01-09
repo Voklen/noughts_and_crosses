@@ -66,17 +66,18 @@ pub fn get_winner(board: [[CellState; ROWS]; COLLUMNS]) -> Winner{
     }
     // Check rows
     let mut in_a_row;
-    let mut prev_element = CellState::None;
+    let mut prev_element ;
     for row in 0..ROWS {
         in_a_row = true;
+        prev_element = board[0][row];
         for collumn in board {
-            if collumn[row] != prev_element{ // If the elements inthis row are not the same, break
+            if collumn[row] != prev_element{ // If the elements in this row are not the same, break
                 in_a_row = false;
                 break;
             }
             prev_element = collumn[row];
         }
-        if in_a_row == true {
+        if in_a_row == true { // Only true if all columns have been looped through and all elements match
             match prev_element {
                 CellState::Crosses=>return Winner::Crosses,
                 CellState::Noughts=>return Winner::Noughts,
