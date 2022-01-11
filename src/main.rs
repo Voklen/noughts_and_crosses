@@ -58,4 +58,12 @@ mod tests{
             [CellState::None, CellState::None, CellState::Crosses]]
         ),Winner::Crosses)
     }
+    #[test]
+    fn get_winner_other_diagonal() {
+        assert_eq!(get_winner([
+            [CellState::Noughts, CellState::None, CellState::Crosses],
+            [CellState::Noughts, CellState::Crosses, CellState::Noughts],
+            [CellState::Crosses, CellState::None, CellState::None]]
+        ),Winner::Crosses)
+    }
 }
