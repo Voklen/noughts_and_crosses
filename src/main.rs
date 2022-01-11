@@ -50,4 +50,12 @@ mod tests{
             [CellState::None, CellState::Crosses, CellState::Noughts]]
         ),Winner::Crosses)
     }
+    #[test]
+    fn get_winner_diagonal() {
+        assert_eq!(get_winner([
+            [CellState::Crosses, CellState::Noughts, CellState::None],
+            [CellState::Noughts, CellState::Crosses, CellState::Noughts],
+            [CellState::None, CellState::None, CellState::Crosses]]
+        ),Winner::Crosses)
+    }
 }
