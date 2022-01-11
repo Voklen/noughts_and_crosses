@@ -85,6 +85,38 @@ pub fn get_winner(board: [[CellState; ROWS]; COLLUMNS]) -> Winner{
             }
         }
     }
+    // Check diagonal from 0,0
+    in_a_row = true; // Can reuse mutable varable from row check as it is no longer needed
+    let max_diagonal = if ROWS > COLLUMNS {COLLUMNS} else {ROWS};
+    for i in 1..max_diagonal {
+        if (board[i][i]) != board[i-1][i-1] {
+            in_a_row = false;
+            break;
+        }
+    }
+    if in_a_row { // Only true if all columns have been looped through and all elements match
+        match board[0][0] {
+            CellState::Crosses=>return Winner::Crosses,
+            CellState::Noughts=>return Winner::Noughts,
+            CellState::None=>()
+        }
+    }
+    // Check other diagonal
+    in_a_row = true; // Can reuse mutable varable from row check as it is no longer needed
+    for i in 1..max_diagonal {
+        if (board[i][COLLUMNS-1-i]) != board[i-1][COLLUMNS-i] {
+            in_a_row = false;
+            break;
+        }
+    }
+    if in_a_row { // Only true if all columns have been looped through and all elements match
+        match board[0][COLLUMNS-1] {
+            CellState::Crosses=>return Winner::Crosses,
+            CellState::Noughts=>return Winner::Noughts,
+            CellState::None=>()
+        }
+    }
+    // If nobody's won, check if the game is still going
     for row in board {
         for i in row {
             if i == CellState::None {
