@@ -34,7 +34,7 @@ mod tests {
 	use crate::two_players::base::get_winner;
 	use crate::two_players::base::CellState;
 	#[test]
-	fn get_winner_collumns() {
+	fn get_winner_columns() {
 		assert_eq!(
 			get_winner([
 				[CellState::Noughts, CellState::Noughts, CellState::None],

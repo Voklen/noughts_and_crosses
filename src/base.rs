@@ -12,12 +12,12 @@ pub enum CellState {
 }
 
 const ROWS: usize = 3;
-const COLLUMNS: usize = 3;
+const COLUMNS: usize = 3;
 
-pub fn print_board(board: [[CellState; ROWS]; COLLUMNS]) {
-	// THIS BOARD GOES DOWN THEN ALONG (Basicly rows are collums and collums are rows)
+pub fn print_board(board: [[CellState; ROWS]; COLUMNS]) {
+	// THIS BOARD GOES DOWN THEN ALONG (Basically rows are columns and columns are rows)
 	// So a 'X' in the top left would be at 1,3
-	// This only affects printing no for everywhere else rows and collumns are still as they are in the array
+	// This only affects printing no for everywhere else rows and columns are still as they are in the array
 	let row_length = 3;
 	for row in board {
 		println!("\n{}-", "--".repeat(row_length));
@@ -37,19 +37,19 @@ pub fn print_board(board: [[CellState; ROWS]; COLLUMNS]) {
 }
 
 pub fn player_move(
-	mut board: [[CellState; ROWS]; COLLUMNS],
+	mut board: [[CellState; ROWS]; COLUMNS],
 	player: Player,
-) -> [[CellState; ROWS]; COLLUMNS] {
+) -> [[CellState; ROWS]; COLUMNS] {
 	println!("{:?}, play a move (1-9)", player);
 	let mut move_pos: usize = text_io::read!();
 	move_pos -= 1;
-	while board[move_pos / COLLUMNS][move_pos % COLLUMNS] != CellState::None {
+	while board[move_pos / COLUMNS][move_pos % COLUMNS] != CellState::None {
 		println!("That square is already used, try a different move");
 		println!("{:?}, play a move (0-8)", player);
 		move_pos = text_io::read!();
 		move_pos -= 1;
 	}
-	board[move_pos / COLLUMNS][move_pos % COLLUMNS] = if player == Player::Noughts {
+	board[move_pos / COLUMNS][move_pos % COLUMNS] = if player == Player::Noughts {
 		CellState::Noughts
 	} else {
 		CellState::Crosses
@@ -57,12 +57,12 @@ pub fn player_move(
 	board
 }
 
-pub fn get_winner(board: [[CellState; ROWS]; COLLUMNS]) -> Option<CellState> {
-	// Check collumns
-	for collumn in board {
-		if collumn == [CellState::Noughts; ROWS] {
+pub fn get_winner(board: [[CellState; ROWS]; COLUMNS]) -> Option<CellState> {
+	// Check columns
+	for column in board {
+		if column == [CellState::Noughts; ROWS] {
 			return Some(CellState::Noughts);
-		} else if collumn == [CellState::Crosses; ROWS] {
+		} else if column == [CellState::Crosses; ROWS] {
 			return Some(CellState::Crosses);
 		}
 	}
@@ -72,13 +72,13 @@ pub fn get_winner(board: [[CellState; ROWS]; COLLUMNS]) -> Option<CellState> {
 	for row in 0..ROWS {
 		in_a_row = true;
 		prev_element = board[0][row];
-		for collumn in board {
-			if collumn[row] != prev_element {
+		for column in board {
+			if column[row] != prev_element {
 				// If the elements in this row are not the same, break
 				in_a_row = false;
 				break;
 			}
-			prev_element = collumn[row];
+			prev_element = column[row];
 		}
 		if in_a_row == true && prev_element != CellState::None {
 			// Only true if all columns have been looped through and all elements match
@@ -86,8 +86,8 @@ pub fn get_winner(board: [[CellState; ROWS]; COLLUMNS]) -> Option<CellState> {
 		}
 	}
 	// Check diagonal from 0,0
-	in_a_row = true; // Can reuse mutable varable from row check as it is no longer needed
-	let max_diagonal = if ROWS > COLLUMNS { COLLUMNS } else { ROWS };
+	in_a_row = true; // Can reuse mutable variable from row check as it is no longer needed
+	let max_diagonal = if ROWS > COLUMNS { COLUMNS } else { ROWS };
 	for i in 1..max_diagonal {
 		if (board[i][i]) != board[i - 1][i - 1] {
 			in_a_row = false;
@@ -99,16 +99,16 @@ pub fn get_winner(board: [[CellState; ROWS]; COLLUMNS]) -> Option<CellState> {
 		return Some(board[0][0]);
 	}
 	// Check other diagonal
-	in_a_row = true; // Can reuse mutable varable from row check as it is no longer needed
+	in_a_row = true; // Can reuse mutable variable from row check as it is no longer needed
 	for i in 1..max_diagonal {
-		if (board[i][COLLUMNS - 1 - i]) != board[i - 1][COLLUMNS - i] {
+		if (board[i][COLUMNS - 1 - i]) != board[i - 1][COLUMNS - i] {
 			in_a_row = false;
 			break;
 		}
 	}
-	if in_a_row && board[0][COLLUMNS - 1] != CellState::None {
+	if in_a_row && board[0][COLUMNS - 1] != CellState::None {
 		// Only true if all columns have been looped through and all elements match
-		return Some(board[0][COLLUMNS - 1]);
+		return Some(board[0][COLUMNS - 1]);
 	}
 	// If nobody's won, check if the game is still going
 	for row in board {
