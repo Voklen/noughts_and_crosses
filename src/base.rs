@@ -11,14 +11,6 @@ pub enum CellState {
     None
 }
 
-#[derive(Debug, PartialEq, Eq)]
-pub enum Winner {
-    Noughts,
-    Crosses,
-    Draw,
-    StillPlaying
-}
-
 const ROWS: usize = 3;
 const COLLUMNS: usize = 3;
 
@@ -55,13 +47,13 @@ pub fn player_move(mut board: [[CellState; ROWS]; COLLUMNS], player: Player) -> 
     board
 }
 
-pub fn get_winner(board: [[CellState; ROWS]; COLLUMNS]) -> Winner{
+pub fn get_winner(board: [[CellState; ROWS]; COLLUMNS]) -> Option<CellState>{
     // Check collumns
     for collumn in board {
         if collumn == [CellState::Noughts; ROWS]{
-           return Winner::Noughts
+           return Some(CellState::Noughts)
         } else if collumn == [CellState::Crosses; ROWS] {
-            return Winner::Crosses;
+            return Some(CellState::Crosses);
         }
     }
     // Check rows
@@ -77,12 +69,8 @@ pub fn get_winner(board: [[CellState; ROWS]; COLLUMNS]) -> Winner{
             }
             prev_element = collumn[row];
         }
-        if in_a_row == true { // Only true if all columns have been looped through and all elements match
-            match prev_element {
-                CellState::Crosses=>return Winner::Crosses,
-                CellState::Noughts=>return Winner::Noughts,
-                CellState::None=>()
-            }
+        if in_a_row == true && prev_element != CellState::None { // Only true if all columns have been looped through and all elements match
+            return Some(prev_element);
         }
     }
     // Check diagonal from 0,0
@@ -94,12 +82,8 @@ pub fn get_winner(board: [[CellState; ROWS]; COLLUMNS]) -> Winner{
             break;
         }
     }
-    if in_a_row { // Only true if all columns have been looped through and all elements match
-        match board[0][0] {
-            CellState::Crosses=>return Winner::Crosses,
-            CellState::Noughts=>return Winner::Noughts,
-            CellState::None=>()
-        }
+    if in_a_row && board[0][0] != CellState::None { // Only true if all columns have been looped through and all elements match
+        return Some(board[0][0]);
     }
     // Check other diagonal
     in_a_row = true; // Can reuse mutable varable from row check as it is no longer needed
@@ -109,20 +93,17 @@ pub fn get_winner(board: [[CellState; ROWS]; COLLUMNS]) -> Winner{
             break;
         }
     }
-    if in_a_row { // Only true if all columns have been looped through and all elements match
-        match board[0][COLLUMNS-1] {
-            CellState::Crosses=>return Winner::Crosses,
-            CellState::Noughts=>return Winner::Noughts,
-            CellState::None=>()
-        }
+    if in_a_row && board[0][COLLUMNS-1] != CellState::None { // Only true if all columns have been looped through and all elements match
+        return Some(board[0][COLLUMNS-1]);
     }
     // If nobody's won, check if the game is still going
     for row in board {
         for i in row {
             if i == CellState::None {
-                return Winner::StillPlaying;
+                return None; // If there is still a free space on the board and nobody's won, the game is still going
             }
         }
     }
-    return Winner::Draw;
+    // If nobody's won and there are no free spaces, it's a draw.
+    return Some(CellState::None);
 }

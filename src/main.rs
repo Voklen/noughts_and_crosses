@@ -31,7 +31,6 @@ fn main() {
 
 #[cfg(test)]
 mod tests{
-    use crate::two_players::base::Winner;
     use crate::two_players::base::CellState;
     use crate::two_players::base::get_winner;
     #[test]
@@ -40,7 +39,7 @@ mod tests{
             [CellState::Noughts, CellState::Noughts, CellState::None],
             [CellState::Crosses, CellState::Crosses, CellState::Crosses],
             [CellState::None, CellState::None, CellState::Noughts]]
-        ),Winner::Crosses)
+        ),Some(CellState::Crosses))
     }
     #[test]
     fn get_winner_row() {
@@ -48,7 +47,7 @@ mod tests{
             [CellState::Noughts, CellState::Crosses, CellState::None],
             [CellState::None, CellState::Crosses, CellState::Noughts],
             [CellState::None, CellState::Crosses, CellState::Noughts]]
-        ),Winner::Crosses)
+        ),Some(CellState::Crosses))
     }
     #[test]
     fn get_winner_diagonal() {
@@ -56,7 +55,7 @@ mod tests{
             [CellState::Crosses, CellState::Noughts, CellState::None],
             [CellState::Noughts, CellState::Crosses, CellState::Noughts],
             [CellState::None, CellState::None, CellState::Crosses]]
-        ),Winner::Crosses)
+        ),Some(CellState::Crosses))
     }
     #[test]
     fn get_winner_other_diagonal() {
@@ -64,6 +63,6 @@ mod tests{
             [CellState::Noughts, CellState::None, CellState::Crosses],
             [CellState::Noughts, CellState::Crosses, CellState::Noughts],
             [CellState::Crosses, CellState::None, CellState::None]]
-        ),Winner::Crosses)
+        ),Some(CellState::Crosses))
     }
 }
