@@ -30,39 +30,51 @@ fn main() {
 }
 
 #[cfg(test)]
-mod tests{
-    use crate::two_players::base::CellState;
+mod tests {
     use crate::two_players::base::get_winner;
+    use crate::two_players::base::CellState;
     #[test]
     fn get_winner_collumns() {
-        assert_eq!(get_winner([
-            [CellState::Noughts, CellState::Noughts, CellState::None],
-            [CellState::Crosses, CellState::Crosses, CellState::Crosses],
-            [CellState::None, CellState::None, CellState::Noughts]]
-        ),Some(CellState::Crosses))
+        assert_eq!(
+            get_winner([
+                [CellState::Noughts, CellState::Noughts, CellState::None],
+                [CellState::Crosses, CellState::Crosses, CellState::Crosses],
+                [CellState::None, CellState::None, CellState::Noughts]
+            ]),
+            Some(CellState::Crosses)
+        )
     }
     #[test]
     fn get_winner_row() {
-        assert_eq!(get_winner([
-            [CellState::Noughts, CellState::Crosses, CellState::None],
-            [CellState::None, CellState::Crosses, CellState::Noughts],
-            [CellState::None, CellState::Crosses, CellState::Noughts]]
-        ),Some(CellState::Crosses))
+        assert_eq!(
+            get_winner([
+                [CellState::Noughts, CellState::Crosses, CellState::None],
+                [CellState::None, CellState::Crosses, CellState::Noughts],
+                [CellState::None, CellState::Crosses, CellState::Noughts]
+            ]),
+            Some(CellState::Crosses)
+        )
     }
     #[test]
     fn get_winner_diagonal() {
-        assert_eq!(get_winner([
-            [CellState::Crosses, CellState::Noughts, CellState::None],
-            [CellState::Noughts, CellState::Crosses, CellState::Noughts],
-            [CellState::None, CellState::None, CellState::Crosses]]
-        ),Some(CellState::Crosses))
+        assert_eq!(
+            get_winner([
+                [CellState::Crosses, CellState::Noughts, CellState::None],
+                [CellState::Noughts, CellState::Crosses, CellState::Noughts],
+                [CellState::None, CellState::None, CellState::Crosses]
+            ]),
+            Some(CellState::Crosses)
+        )
     }
     #[test]
     fn get_winner_other_diagonal() {
-        assert_eq!(get_winner([
-            [CellState::Noughts, CellState::None, CellState::Crosses],
-            [CellState::Noughts, CellState::Crosses, CellState::Noughts],
-            [CellState::Crosses, CellState::None, CellState::None]]
-        ),Some(CellState::Crosses))
+        assert_eq!(
+            get_winner([
+                [CellState::Noughts, CellState::None, CellState::Crosses],
+                [CellState::Noughts, CellState::Crosses, CellState::Noughts],
+                [CellState::Crosses, CellState::None, CellState::None]
+            ]),
+            Some(CellState::Crosses)
+        )
     }
 }

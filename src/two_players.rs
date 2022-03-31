@@ -1,7 +1,8 @@
-#[path = "base.rs"]pub mod base;
+#[path = "base.rs"]
+pub mod base;
 
 pub fn main() {
-    use base::{Player, CellState, print_board, player_move, get_winner};
+    use base::{get_winner, player_move, print_board, CellState, Player};
     let mut board: [[CellState; 3]; 3] = [[CellState::None; 3]; 3];
     let mut current_player = Player::Noughts;
     println!("2 Player Game:");
@@ -14,11 +15,11 @@ pub fn main() {
             board = player_move(board, Player::Crosses);
             current_player = Player::Noughts;
         };
-    };
+    }
     match get_winner(board) {
-        Some(CellState::Crosses)=>println!("AND THE WINNER IS: Crosses!"),
-        Some(CellState::Noughts)=>println!("AND THE WINNER IS: Noughts!"),
-        Some(CellState::None)=>println!("AND ITS A DRAW!"),
-        None=>println!("AND THE WINNER IS: wait, nobody?! What. Something's gone VERY wrong...")
+        Some(CellState::Crosses) => println!("AND THE WINNER IS: Crosses!"),
+        Some(CellState::Noughts) => println!("AND THE WINNER IS: Noughts!"),
+        Some(CellState::None) => println!("AND ITS A DRAW!"),
+        None => println!("AND THE WINNER IS: wait, nobody?! What. Something's gone VERY wrong..."),
     };
 }
