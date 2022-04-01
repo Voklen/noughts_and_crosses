@@ -4,6 +4,22 @@ pub enum Player {
 	Crosses,
 }
 
+impl Player {
+	pub fn to_cellstate(&self) -> CellState {
+		match self {
+			Self::Noughts => CellState::Noughts,
+			Self::Crosses => CellState::Crosses,
+		}
+	}
+
+	pub fn alternate(self) -> Self {
+		match self {
+			Self::Noughts => Self::Crosses,
+			Self::Crosses => Self::Noughts,
+		}
+	}
+}
+
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub enum CellState {
 	Noughts,
@@ -38,7 +54,7 @@ pub fn print_board(board: [[CellState; ROWS]; COLUMNS]) {
 
 pub fn player_move(
 	mut board: [[CellState; ROWS]; COLUMNS],
-	player: Player,
+	player: CellState,
 ) -> [[CellState; ROWS]; COLUMNS] {
 	println!("{:?}, play a move (1-9)", player);
 	let mut move_pos: usize = text_io::read!();
@@ -49,11 +65,7 @@ pub fn player_move(
 		move_pos = text_io::read!();
 		move_pos -= 1;
 	}
-	board[move_pos / COLUMNS][move_pos % COLUMNS] = if player == Player::Noughts {
-		CellState::Noughts
-	} else {
-		CellState::Crosses
-	};
+	board[move_pos / COLUMNS][move_pos % COLUMNS] = player;
 	board
 }
 
