@@ -10,9 +10,9 @@ pub fn main() {
 	recursive_game_loop(board, current_player)
 }
 
-fn recursive_game_loop(mut board: [[CellState; 3]; 3], player: Player) {
+fn recursive_game_loop(board: [[CellState; 3]; 3], player: Player) {
 	print_board(board);
-	board = player_move(board, player.to_cellstate());
+	let board = player_move(board, &player);
 
 	match get_winner(board) {
 		Some(CellState::Crosses) => println!("AND THE WINNER IS: Crosses!"),

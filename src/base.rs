@@ -54,7 +54,7 @@ pub fn print_board(board: [[CellState; ROWS]; COLUMNS]) {
 
 pub fn player_move(
 	mut board: [[CellState; ROWS]; COLUMNS],
-	player: CellState,
+	player: &Player,
 ) -> [[CellState; ROWS]; COLUMNS] {
 	println!("{:?}, play a move (1-9)", player);
 	let mut move_pos: usize = text_io::read!();
@@ -65,7 +65,7 @@ pub fn player_move(
 		move_pos = text_io::read!();
 		move_pos -= 1;
 	}
-	board[move_pos / COLUMNS][move_pos % COLUMNS] = player;
+	board[move_pos / COLUMNS][move_pos % COLUMNS] = player.to_cellstate();
 	board
 }
 
