@@ -19,7 +19,13 @@ fn main() {
 								  |  ££££££/                                                                                                                        
 								   |______/                                                                                                                         ");
 	println!("How many players would you like?");
-	let players: i32 = text_io::read!();
+	let players: i32 = match text_io::try_read!() {
+		Ok(i) => i,
+		Err(_) => {
+			println!("Please type in a number");
+			std::process::exit(1);
+		},
+	};
 	if players == 1 {
 		one_player::main()
 	} else if players == 2 {

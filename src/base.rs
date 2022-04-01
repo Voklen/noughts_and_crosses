@@ -34,9 +34,8 @@ pub fn print_board(board: [[CellState; ROWS]; COLUMNS]) {
 	// THIS BOARD GOES DOWN THEN ALONG (Basically rows are columns and columns are rows)
 	// So a 'X' in the top left would be at 1,3
 	// This only affects printing no for everywhere else rows and columns are still as they are in the array
-	let row_length = 3;
 	for row in board {
-		println!("\n{}-", "--".repeat(row_length));
+		println!("\n{}-", "--".repeat(ROWS));
 		for i in row {
 			print!(
 				"|{}",
@@ -49,7 +48,7 @@ pub fn print_board(board: [[CellState; ROWS]; COLUMNS]) {
 		}
 		print!("|");
 	}
-	println!("\n{}-", "--".repeat(row_length));
+	println!("\n{}-", "--".repeat(ROWS));
 }
 
 pub fn player_move(
